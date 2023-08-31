@@ -1,40 +1,40 @@
-<header>
 ---
-title: "Data-Product_Assignment_week2"
-author: "Yangyang Liu"
-datetime: "08-29-2023"
-always)allow_html: yes
-
-<!--
-  <<< Author notes: Course header >>>
-  Include a 1280×640 image, course title in sentence case, and a concise description in emphasis.
-  In your repository settings: enable template repository, add your 1280×640 social image, auto delete head branches.
-  Add your open source license, GitHub uses MIT license.
--->
-
-# Instructions
-Create a webpage using R Markdown that features a map created with Leaflet.
-Host your webpage on Github Page
-The webpage must contain the date that you created the document, and it must contain a map created with Leaflet. 
+title: "Developing-Data-Product-Assignment-week2"
+author: "Yangyang.liu" 
+date: "8/29/2023"
+output: html_document
+---
+# August 31, 2023
+# Description 
+Create a web page using R Markdown that features a map created with leaflet. 
+The web page features about DHL Freight Forwarding location in IAD and JFK.
 
 
-_Get started using GitHub in less than an hour._
-
-</Description>
-
-A webpage showing the all DHL Hubs in IAD, LAX,ATL,ORD and JFK. and add the markers on the web page.
-the 'addMarker()' function by specifying the latitude and longitude. ([Here's](https://dgfstationfinder.dhl.com/))
-https://locations.us.express.dhl.com/va/sterling/22720-ladbrook-drive?utm_source=google&utm_medium=organic&utm_campaign=gmb-listing
-https://locations.us.express.dhl.com/ca/los-angeles/1900-sacramento-street
-https://locations.us.express.dhl.com/ga
-<!--
-  
--->
-
-## Installation
-
-```r
-install.packages("leaflet")
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
 ```
-library (leaflet)
 
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r}
+library(leaflet)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r, echo=FALSE}
+library(leaflet)
+my_map <- leaflet() %>% addTiles()
+my_map <- my_map %>% addMarkers(lat=39.010632, lng=-77.398376, 
+             popup="DGF Hub IAD play here")
+my_map <- my_map %>% addMarkers(lat=40.735010, lng=-74.173090, 
+             popup="DGF Hub JFK play here")
+my_map
+```
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

@@ -1,0 +1,30 @@
+---
+title: "R Markdown Presentation"
+author: "Yangyang Liu"
+date: "2023-09-06"
+output: html_document
+---
+## Week 3 Assignment R Markdown Presentation & Plotly
+## Yangyang Liu
+## September 6, 2023
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r cars}
+summary(cars)
+```
+
+
+
+
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

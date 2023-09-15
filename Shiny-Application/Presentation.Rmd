@@ -1,0 +1,110 @@
+---
+title: "reproduciblePitch"
+author: "Yangyang Liu"
+date: "2023-09-15"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Coursera Reproducible Pitch
+
+### About the Course Project
+
+This is a deliverable for the course Developing Data Products as part of the Coursera Data Science Specialization.
+
+Instructions:
+
+1. Write a shiny application with associated supporting documentation. The documentation should be thought of as whatever a user will need to get started using your application.
+2. Deploy the application on Rstudio's shiny server
+3. Share the application link by pasting it into the provided text box
+4. Share your server.R and ui.R code on github
+
+### How to use the application
+
+This application to calculate work hours, overtime, and pay with tax and after-tax considerations can be quite involved due to the complexity of payroll calculations.
+
+The application is running on (http://127.0.0.1:6058)
+
+ui.R, and Server.R Code in my github repository (https://github.com/yali0826/Coursera-Data-Product-Assignment--week2/blob/main/Shiny-Application/app.R)
+
+
+```{r summary}
+library(shiny)
+```
+
+## Data used in the app
+
+ui.R
+
+r sidebarLayout(
+    sidebarPanel(
+      numericInput("hours_worked", "Hours Worked:", 40, min = 0),
+      numericInput("hourly_rate", "Hourly Rate ($):", 15, min = 0),
+      numericInput("overtime_threshold", "Overtime Threshold (hours):", 40, min = 0),
+      numericInput("tax_rate", "Tax Rate (%):", 20, min = 0),
+      actionButton("calculate_button", "Calculate")
+    ),
+    mainPanel(
+      h4("Payroll Results:"),
+      textOutput("gross_pay"),
+      textOutput("tax_deduction"),
+      textOutput("net_pay")
+    )
+  )
+)
+
+
+server.R
+server <- function(input, output) {
+  observeEvent(input$calculate_button, {
+    # Calculate gross pay
+    hours_worked <- input$hours_worked
+    hourly_rate <- input$hourly_rate
+    overtime_threshold <- input$overtime_threshold
+    tax_rate <- input$tax_rate
+    
+    if (hours_worked > overtime_threshold) {
+      regular_hours <- overtime_threshold
+      overtime_hours <- hours_worked - overtime_threshold
+    } else {
+      regular_hours <- hours_worked
+      overtime_hours <- 0
+    }
+    
+    gross_pay <- (regular_hours * hourly_rate) + (overtime_hours * hourly_rate * 1.5)
+    
+    # Calculate tax deduction
+    tax_deduction <- (gross_pay * (tax_rate / 100))
+    
+    # Calculate net pay
+    net_pay <- gross_pay - tax_deduction
+    
+    # Update the output elements
+    output$gross_pay <- renderText({
+      paste("Gross Pay: $", formatC(gross_pay, format = "f", digits = 2))
+    })
+    
+    output$tax_deduction <- renderText({
+      paste("Tax Deduction: $", formatC(tax_deduction, format = "f", digits = 2))
+    })
+    
+    output$net_pay <- renderText({
+      paste("Net Pay: $", formatC(net_pay, format = "f", digits = 2))
+    })
+  })
+}
+```
+
+## Both file be found here: 
+
+### Main panel
+
+- Hours Worked
+- Hourly Rate
+- Overtme Thereshold
+- Tax Rate
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
